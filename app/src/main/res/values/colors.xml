@@ -43,4 +43,7 @@
   <color name="black">#000000</color>
   <color name="white">#FFFFFF</color>
 
+  <color name="greenStart">#1FAA59</color>
+  <color name="greenEnd">#38CC77</color>
+
 </resources>
