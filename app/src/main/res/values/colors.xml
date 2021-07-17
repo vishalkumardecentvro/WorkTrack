@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!--    100% — FF-->
+  <!--    95% — F2-->
+  <!--    90% — E6-->
+  <!--    85% — D9-->
+  <!--    80% — CC-->
+  <!--    75% — BF-->
+  <!--    70% — B3-->
+  <!--    65% — A6-->
+  <!--    60% — 99-->
+  <!--    55% — 8C-->
+  <!--    50% — 80-->
+  <!--    45% — 73-->
+  <!--    40% — 66-->
+  <!--    35% — 59-->
+  <!--    30% — 4D-->
+  <!--    25% — 40-->
+  <!--    20% — 33-->
+  <!--    15% — 26-->
+  <!--    10% — 1A-->
+  <!--    5% — 0D-->
+  <!--    0% — 00-->
+
+  <color name="primary">#33cccc</color>
+  <color name="primaryDark">#85e0e0</color>
+  <color name="primaryLight">#fcd2cf</color>
+
+  <color name="secondary">#F7F7F7</color>
+  <color name="secondaryDark">#d9d9d9</color>
+  <color name="secondaryDarker">#b3b3b3</color>
+  <color name="dark">#373435</color>
+
+  <color name="accent">@color/primaryDark</color>
+
+  <color name="error">#ff6666</color>
+  <color name="success">#56f000</color>
+  <color name="info">#00bfff</color>
+  <color name="warning">#ffb302</color>
+  <color name="light_shade"> #ffe8b3</color>
+
+  <color name="black">#000000</color>
+  <color name="white">#FFFFFF</color>
+
+</resources>
