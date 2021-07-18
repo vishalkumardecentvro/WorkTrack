@@ -69,6 +69,13 @@ public class DoingFragment extends Fragment {
 
   private void listen() {
     binding.llCreateTask.setOnClickListener(v -> processAddTask());
+
+    doingAdapter.setOnEditClick(new DoingAdapter.OnEditClick() {
+      @Override
+      public void editTask(int position) {
+
+      }
+    });
   }
 
   private void load() {

@@ -2,6 +2,7 @@ package com.example.worktrack.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
@@ -21,6 +22,7 @@ public class DoingAdapter extends RecyclerView.Adapter<DoingAdapter.ViewHolder> 
 
   private List<DoingEntity> doingEntityList = new ArrayList<>();
   private Context context;
+  private OnEditClick onEditClick;
 
   public DoingAdapter(Context context) {
     this.context = context;
@@ -30,7 +32,7 @@ public class DoingAdapter extends RecyclerView.Adapter<DoingAdapter.ViewHolder> 
   @NotNull
   @Override
   public DoingAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-    return new ViewHolder(RvDoingBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false));
+    return new ViewHolder(RvDoingBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false), onEditClick);
   }
 
   @Override
@@ -44,14 +46,40 @@ public class DoingAdapter extends RecyclerView.Adapter<DoingAdapter.ViewHolder> 
     return doingEntityList.size();
   }
 
+  public void setDoingEntityList(List<DoingEntity> doingEntityList) {
+    this.doingEntityList = doingEntityList;
+    notifyDataSetChanged();
+  }
+
+  public void setOnEditClick(OnEditClick onEditClick) {
+    this.onEditClick = onEditClick;
+  }
+
+  public interface OnEditClick {
+    void editTask(int position);
+  }
+
   public class ViewHolder extends RecyclerView.ViewHolder {
     private RvDoingBinding binding;
-    public ViewHolder(RvDoingBinding binding) {
+
+    public ViewHolder(RvDoingBinding binding, OnEditClick onEditClick) {
       super(binding.getRoot());
       this.binding = binding;
+
+      binding.ivEdit.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          if (onEditClick != null) {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+              onEditClick.editTask(position);
+            }
+          }
+        }
+      });
     }
 
-    private void populate(DoingEntity doingEntity){
+    private void populate(DoingEntity doingEntity) {
       binding.tvName.setText(doingEntity.getTaskName());
       binding.tvPriority.setText(String.valueOf(doingEntity.getPriority()));
       binding.tvDate.setText(doingEntity.getDate());
@@ -61,11 +89,6 @@ public class DoingAdapter extends RecyclerView.Adapter<DoingAdapter.ViewHolder> 
       spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
       binding.spinner.setAdapter(spinnerAdapter);
     }
-  }
-
-  public void setDoingEntityList(List<DoingEntity> doingEntityList) {
-    this.doingEntityList = doingEntityList;
-    notifyDataSetChanged();
   }
 
 }
