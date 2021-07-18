@@ -1,6 +1,7 @@
 package com.example.worktrack.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,17 +9,26 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.worktrack.AddTaskBottomSheetDialog;
+import com.example.worktrack.adapters.DoingAdapter;
 import com.example.worktrack.databinding.AddTaskBottomSheetDialogBinding;
 import com.example.worktrack.databinding.FragmentDoingBinding;
+import com.example.worktrack.room.entitiy.DoingEntity;
+import com.example.worktrack.room.view.DoingView;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class DoingFragment extends Fragment {
 
   private FragmentDoingBinding binding;
   private AddTaskBottomSheetDialog addTaskBottomSheetDialog;
+  private DoingView doingView;
+  private DoingAdapter doingAdapter;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -49,19 +59,27 @@ public class DoingFragment extends Fragment {
 
   private void instantiate() {
     addTaskBottomSheetDialog = new AddTaskBottomSheetDialog(getActivity(), AddTaskBottomSheetDialogBinding.inflate(getLayoutInflater()));
+    doingView = ViewModelProviders.of(this).get(DoingView.class);
+    doingAdapter = new DoingAdapter();
   }
 
   private void initialize() {
+    binding.rvDoing.setAdapter(doingAdapter);
 
   }
 
   private void listen() {
     binding.ivAddTask.setOnClickListener(v -> processAddTask());
-
   }
 
   private void load() {
-
+    doingView.getAllTask().observe(getViewLifecycleOwner(), new Observer<List<DoingEntity>>() {
+      @Override
+      public void onChanged(List<DoingEntity> doingEntities) {
+        Log.i("--check--",doingEntities.get(0).getTaskName());
+        doingAdapter.setDoingEntityList(doingEntities);
+      }
+    });
   }
 
   private void processAddTask() {

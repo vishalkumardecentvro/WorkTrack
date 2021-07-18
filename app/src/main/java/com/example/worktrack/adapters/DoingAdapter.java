@@ -1,0 +1,59 @@
+package com.example.worktrack.adapters;
+
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.worktrack.databinding.RvDoingBinding;
+import com.example.worktrack.room.entitiy.DoingEntity;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class DoingAdapter extends RecyclerView.Adapter<DoingAdapter.ViewHolder> {
+
+  private List<DoingEntity> doingEntityList = new ArrayList<>();
+
+  @NonNull
+  @NotNull
+  @Override
+  public DoingAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    return new ViewHolder(RvDoingBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false));
+  }
+
+  @Override
+  public void onBindViewHolder(@NonNull @NotNull DoingAdapter.ViewHolder holder, int position) {
+    holder.populate(doingEntityList.get(position));
+
+  }
+
+  @Override
+  public int getItemCount() {
+    return doingEntityList.size();
+  }
+
+  public class ViewHolder extends RecyclerView.ViewHolder {
+    private RvDoingBinding binding;
+    public ViewHolder(RvDoingBinding binding) {
+      super(binding.getRoot());
+      this.binding = binding;
+    }
+
+    private void populate(DoingEntity doingEntity){
+      binding.tvName.setText(doingEntity.getTaskName());
+      binding.tvPriority.setText(String.valueOf(doingEntity.getPriority()));
+      binding.tvDate.setText(doingEntity.getDate());
+      binding.tvTime.setText(doingEntity.getTime());
+    }
+  }
+
+  public void setDoingEntityList(List<DoingEntity> doingEntityList) {
+    this.doingEntityList = doingEntityList;
+    notifyDataSetChanged();
+  }
+
+}
