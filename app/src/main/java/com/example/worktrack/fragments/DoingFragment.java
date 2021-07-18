@@ -1,7 +1,6 @@
 package com.example.worktrack.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +59,7 @@ public class DoingFragment extends Fragment {
   private void instantiate() {
     addTaskBottomSheetDialog = new AddTaskBottomSheetDialog(getActivity(), AddTaskBottomSheetDialogBinding.inflate(getLayoutInflater()));
     doingView = ViewModelProviders.of(this).get(DoingView.class);
-    doingAdapter = new DoingAdapter();
+    doingAdapter = new DoingAdapter(getContext());
   }
 
   private void initialize() {
@@ -69,14 +68,13 @@ public class DoingFragment extends Fragment {
   }
 
   private void listen() {
-    binding.ivAddTask.setOnClickListener(v -> processAddTask());
+    binding.llCreateTask.setOnClickListener(v -> processAddTask());
   }
 
   private void load() {
     doingView.getAllTask().observe(getViewLifecycleOwner(), new Observer<List<DoingEntity>>() {
       @Override
       public void onChanged(List<DoingEntity> doingEntities) {
-        Log.i("--check--",doingEntities.get(0).getTaskName());
         doingAdapter.setDoingEntityList(doingEntities);
       }
     });

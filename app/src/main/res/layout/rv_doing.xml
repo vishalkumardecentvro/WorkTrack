@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="wrap_content">
 
   <androidx.cardview.widget.CardView
     android:id="@+id/cvTaskCard"
@@ -70,6 +70,7 @@
           android:layout_margin="5dp"
           android:layout_weight="1"
           android:fontFamily="sans-serif"
+          android:gravity="end"
           android:padding="10dp"
           android:textColor="@color/black"
           android:textSize="16sp" />
@@ -101,6 +102,7 @@
           android:layout_margin="5dp"
           android:layout_weight="1"
           android:fontFamily="sans-serif"
+          android:gravity="end"
           android:inputType="number"
           android:padding="10dp"
           android:textColor="@color/black"

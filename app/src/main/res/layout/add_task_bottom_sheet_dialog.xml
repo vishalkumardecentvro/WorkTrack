@@ -41,7 +41,8 @@
         android:layout_height="50dp"
         android:layout_margin="5dp"
         android:layout_weight="1"
-        app:cardElevation="5dp">
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
 
         <TextView
           android:id="@+id/tvDate"
@@ -60,7 +61,8 @@
         android:layout_height="50dp"
         android:layout_margin="5dp"
         android:layout_weight="1"
-        app:cardElevation="5dp">
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp">
 
         <TextView
           android:id="@+id/tvTime"
@@ -81,8 +83,7 @@
       android:layout_height="50dp"
       android:layout_gravity="center"
       android:layout_marginBottom="10dp"
-      app:strokeColor="@color/greenStart"
-      app:strokeWidth="1dp">
+      app:cardBackgroundColor="@color/greenStart">
 
       <TextView
         android:id="@+id/tvSave"
@@ -90,7 +91,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="Save"
-        android:textColor="@color/greenStart"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
     </com.google.android.material.card.MaterialCardView>
