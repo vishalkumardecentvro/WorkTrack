@@ -33,6 +33,8 @@
   <color name="dark">#373435</color>
 
   <color name="accent">@color/primaryDark</color>
+  <color name="focus">#80bfff</color>
+  <color name="focusTwo">#4da6ff</color>
 
   <color name="error">#ff6666</color>
   <color name="success">#56f000</color>
