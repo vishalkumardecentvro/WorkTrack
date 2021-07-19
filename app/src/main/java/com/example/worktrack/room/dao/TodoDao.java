@@ -7,21 +7,21 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.worktrack.room.entitiy.DoingEntity;
+import com.example.worktrack.room.entitiy.TodoEntity;
 
 import java.util.List;
 
 @Dao
 public interface TodoDao {
   @Insert
-  void insertTask(DoingEntity task);
+  void insertTask(TodoEntity task);
 
   @Delete
-  void delete(DoingEntity task);
+  void delete(TodoEntity task);
 
   @Update
-  void update(DoingEntity task);
+  void update(TodoEntity task);
 
-  @Query("select * from doing order by priority asc")
-  LiveData<List<DoingEntity>> fetchAllDoingTask();
+  @Query("select * from todo order by priority asc")
+  LiveData<List<TodoEntity>> fetchAllTodoTask();
 }

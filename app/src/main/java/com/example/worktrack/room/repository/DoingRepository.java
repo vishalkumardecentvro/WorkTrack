@@ -37,7 +37,6 @@ public class DoingRepository {
   }
 
   private static class InsertAsyncTask extends AsyncTask<DoingEntity, Void, Void> {
-
     private DoingDao doingDao;
 
     private InsertAsyncTask(DoingDao doingDao) {
