@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.worktrack.AddTodoTaskBottomSheetDialog;
 import com.example.worktrack.R;
+import com.example.worktrack.adapters.DoingAdapter;
 import com.example.worktrack.adapters.TodoAdapter;
 import com.example.worktrack.databinding.AddTaskBottomSheetDialogBinding;
 import com.example.worktrack.databinding.FragmentTodoBinding;
@@ -29,6 +30,7 @@ public class TodoFragment extends Fragment {
   private AddTodoTaskBottomSheetDialog addTodoTaskBottomSheetDialog;
   private TodoAdapter todoAdapter;
   private TodoView todoView;
+  private List<TodoEntity> todoEntityList;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -67,12 +69,31 @@ public class TodoFragment extends Fragment {
   private void listen(){
     binding.llCreateTask.setOnClickListener(v -> processAddTask());
 
+    todoAdapter.setOnEditClick(new TodoAdapter.OnEditClick() {
+      @Override
+      public void editTask(int position) {
+        Bundle bundle = new Bundle();
+
+        bundle.putInt("id", todoEntityList.get(position).getId());
+        bundle.putString("taskName", todoEntityList.get(position).getTaskName());
+        bundle.putString("taskDate", todoEntityList.get(position).getDate());
+        bundle.putString("taskTime", todoEntityList.get(position).getTime());
+        bundle.putInt("taskPriority", todoEntityList.get(position).getPriority());
+
+        bundle.putBoolean("editMode", true);
+
+        addTodoTaskBottomSheetDialog.show();
+        addTodoTaskBottomSheetDialog.instantiateBundle(bundle);
+      }
+    });
+
   }
 
   private void load(){
     todoView.getAllTask().observe(getViewLifecycleOwner(), new Observer<List<TodoEntity>>() {
       @Override
       public void onChanged(List<TodoEntity> todoEntities) {
+        todoEntityList = todoEntities;
         todoAdapter.setTodoEntityList(todoEntities);
       }
     });
