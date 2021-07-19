@@ -28,6 +28,7 @@ public class DoingFragment extends Fragment {
   private AddTaskBottomSheetDialog addTaskBottomSheetDialog;
   private DoingView doingView;
   private DoingAdapter doingAdapter;
+  private List<DoingEntity> doingEntityList;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class DoingFragment extends Fragment {
   }
 
   private void instantiate() {
+
     addTaskBottomSheetDialog = new AddTaskBottomSheetDialog(getActivity(), AddTaskBottomSheetDialogBinding.inflate(getLayoutInflater()));
     doingView = ViewModelProviders.of(this).get(DoingView.class);
     doingAdapter = new DoingAdapter(getContext());
@@ -74,6 +76,18 @@ public class DoingFragment extends Fragment {
       @Override
       public void editTask(int position) {
 
+        Bundle bundle = new Bundle();
+
+        bundle.putInt("id", doingEntityList.get(position).getId());
+        bundle.putString("taskName", doingEntityList.get(position).getTaskName());
+        bundle.putString("taskDate", doingEntityList.get(position).getDate());
+        bundle.putString("taskTime", doingEntityList.get(position).getTime());
+        bundle.putInt("taskPriority", doingEntityList.get(position).getPriority());
+
+        bundle.putBoolean("editMode", true);
+
+        addTaskBottomSheetDialog.show();
+        addTaskBottomSheetDialog.instantiateBundle(bundle);
       }
     });
   }
@@ -82,6 +96,7 @@ public class DoingFragment extends Fragment {
     doingView.getAllTask().observe(getViewLifecycleOwner(), new Observer<List<DoingEntity>>() {
       @Override
       public void onChanged(List<DoingEntity> doingEntities) {
+        doingEntityList = doingEntities;
         doingAdapter.setDoingEntityList(doingEntities);
       }
     });

@@ -25,11 +25,14 @@ public class AddTaskBottomSheetDialog extends BottomSheetDialog {
   private AddTaskBottomSheetDialogBinding binding;
   private Context context;
   private DoingView doingView;
+  private Bundle bundle;
+  private boolean editMode = false;
 
   public AddTaskBottomSheetDialog(@NonNull @NotNull Context context, AddTaskBottomSheetDialogBinding binding) {
     super(context);
     this.context = context;
     this.binding = binding;
+    clear();
 
     instantiate();
     initialize();
@@ -41,8 +44,27 @@ public class AddTaskBottomSheetDialog extends BottomSheetDialog {
     super.onCreate(savedInstanceState);
   }
 
-  private void instantiate() {
+  @Override
+  public void dismiss() {
+    super.dismiss();
+    clear();
+  }
 
+  private void instantiate() {
+  }
+
+  public void instantiateBundle(Bundle bundleInEditMode) {
+
+    bundle = bundleInEditMode;
+    if (bundle.containsKey("editMode")) {
+
+      binding.metTaskName.setText(bundle.getString("taskName"));
+      binding.metPriority.setText(String.valueOf(bundle.getInt("taskPriority")));
+      binding.tvTime.setText(bundle.getString("taskTime"));
+      binding.tvDate.setText(bundle.getString("taskDate"));
+
+      editMode = bundle.getBoolean("editMode");
+    }
   }
 
   private void initialize() {
@@ -75,7 +97,16 @@ public class AddTaskBottomSheetDialog extends BottomSheetDialog {
     doingEntity.setTime(binding.tvTime.getText().toString());
     doingEntity.setDate(binding.tvDate.getText().toString());
 
-    doingView.insert(doingEntity);
+    if (editMode) {
+      doingEntity.setId(bundle.getInt("id"));
+      doingView.update(doingEntity);
+      editMode = false;
+
+    } else {
+      doingView.insert(doingEntity);
+    }
+
+    clear();
     dismiss();
   }
 
@@ -95,7 +126,6 @@ public class AddTaskBottomSheetDialog extends BottomSheetDialog {
     datePickerDialog.setTitle("Select Date");
     datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
     datePickerDialog.show();
-
   }
 
   private void openTimePicker() {
@@ -117,6 +147,12 @@ public class AddTaskBottomSheetDialog extends BottomSheetDialog {
 
     timePickerDialog.setTitle("Select Time");
     timePickerDialog.show();
+  }
 
+  public void clear() {
+    binding.metPriority.clear();
+    binding.metTaskName.clear();
+    binding.tvDate.setText("");
+    binding.tvTime.setText("");
   }
 }
