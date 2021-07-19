@@ -1,17 +1,26 @@
 package com.example.worktrack.adapters;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.worktrack.R;
 import com.example.worktrack.databinding.RvDoingBinding;
 import com.example.worktrack.room.entitiy.DoingEntity;
+import com.example.worktrack.room.view.DoingView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -23,6 +32,7 @@ public class DoingAdapter extends RecyclerView.Adapter<DoingAdapter.ViewHolder> 
   private List<DoingEntity> doingEntityList = new ArrayList<>();
   private Context context;
   private OnEditClick onEditClick;
+  private Dialog taskCompletedDialog;
 
   public DoingAdapter(Context context) {
     this.context = context;
@@ -66,14 +76,21 @@ public class DoingAdapter extends RecyclerView.Adapter<DoingAdapter.ViewHolder> 
       super(binding.getRoot());
       this.binding = binding;
 
-      binding.ivEdit.setOnClickListener(new View.OnClickListener() {
+      binding.ivEdit.setOnClickListener(v -> {
+        if (onEditClick != null) {
+          int position = getAdapterPosition();
+          if (position != RecyclerView.NO_POSITION) {
+            onEditClick.editTask(position);
+          }
+        }
+      });
+
+      binding.cbCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
         @Override
-        public void onClick(View v) {
-          if (onEditClick != null) {
-            int position = getAdapterPosition();
-            if (position != RecyclerView.NO_POSITION) {
-              onEditClick.editTask(position);
-            }
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+          if (isChecked) {
+            processDeleteDoingTask(getAdapterPosition());
+            buttonView.setChecked(false);
           }
         }
       });
@@ -84,10 +101,33 @@ public class DoingAdapter extends RecyclerView.Adapter<DoingAdapter.ViewHolder> 
       binding.tvPriority.setText(String.valueOf(doingEntity.getPriority()));
       binding.tvDate.setText(doingEntity.getDate());
       binding.tvTime.setText(doingEntity.getTime());
+    }
 
-      ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(context, R.array.doingArray, android.R.layout.simple_spinner_item);
-      spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-      binding.spinner.setAdapter(spinnerAdapter);
+    private void processDeleteDoingTask(int position) {
+      delete(position);
+
+      taskCompletedDialog = new Dialog(context);
+      taskCompletedDialog.setContentView(R.layout.doing_dialog);
+      taskCompletedDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+      taskCompletedDialog.show();
+
+      Button okay = taskCompletedDialog.findViewById(R.id.buttonOkay);
+
+      okay.setOnClickListener(v -> taskCompletedDialog.dismiss());
+    }
+
+    private void delete(int position) {
+      DoingView doingView = ViewModelProviders.of((FragmentActivity) context).get(DoingView.class);
+      DoingEntity doingEntity = new DoingEntity();
+
+      doingEntity.setTaskName(doingEntityList.get(position).getTaskName());
+      doingEntity.setId(doingEntityList.get(position).getId());
+      doingEntity.setDate(doingEntityList.get(position).getDate());
+      doingEntity.setTime(doingEntityList.get(position).getTime());
+      doingEntity.setPriority(doingEntityList.get(position).getPriority());
+
+      doingView.delete(doingEntity);
+      Toast.makeText(context, "Task deleted", Toast.LENGTH_SHORT).show();
     }
   }
 

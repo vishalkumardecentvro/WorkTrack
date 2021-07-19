@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     SectionPageAdapter sectionPageAdapter = new SectionPageAdapter(getSupportFragmentManager());
     sectionPageAdapter.addFragment(new DoingFragment(), "Doing");
     sectionPageAdapter.addFragment(new TodoFragment(), "To do");
-    sectionPageAdapter.addFragment(new DoneFragment(), "Done");
 
     viewPager.setAdapter(sectionPageAdapter);
   }
