@@ -17,8 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.worktrack.R;
 import com.example.worktrack.databinding.RvDoingBinding;
+import com.example.worktrack.room.entitiy.DoingEntity;
 import com.example.worktrack.room.entitiy.TodoEntity;
 import com.example.worktrack.room.view.DoingView;
+import com.example.worktrack.room.view.TodoView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -97,18 +99,18 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
       });
     }
 
-    private void populate(TodoEntity doingEntity) {
-      binding.tvName.setText(doingEntity.getTaskName());
-      binding.tvPriority.setText(String.valueOf(doingEntity.getPriority()));
-      binding.tvDate.setText(doingEntity.getDate());
-      binding.tvTime.setText(doingEntity.getTime());
+    private void populate(TodoEntity todoEntity) {
+      binding.tvName.setText(todoEntity.getTaskName());
+      binding.tvPriority.setText(String.valueOf(todoEntity.getPriority()));
+      binding.tvDate.setText(todoEntity.getDate());
+      binding.tvTime.setText(todoEntity.getTime());
     }
 
     private void processDeleteDoingTask(int position) {
       delete(position);
 
       taskCompletedDialog = new Dialog(context);
-      taskCompletedDialog.setContentView(R.layout.doing_dialog);
+      taskCompletedDialog.setContentView(R.layout.todo_dialog);
       taskCompletedDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
       taskCompletedDialog.show();
 
@@ -119,16 +121,25 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
 
     private void delete(int position) {
       DoingView doingView = ViewModelProviders.of((FragmentActivity) context).get(DoingView.class);
-      TodoEntity doingEntity = new TodoEntity();
+      TodoView todoView = ViewModelProviders.of((FragmentActivity) context).get(TodoView.class);
+
+      TodoEntity todoEntity = new TodoEntity();
+      DoingEntity doingEntity = new DoingEntity();
+
+      todoEntity.setTaskName(todoEntityList.get(position).getTaskName());
+      todoEntity.setId(todoEntityList.get(position).getId());
+      todoEntity.setDate(todoEntityList.get(position).getDate());
+      todoEntity.setTime(todoEntityList.get(position).getTime());
+      todoEntity.setPriority(todoEntityList.get(position).getPriority());
 
       doingEntity.setTaskName(todoEntityList.get(position).getTaskName());
-      doingEntity.setId(todoEntityList.get(position).getId());
       doingEntity.setDate(todoEntityList.get(position).getDate());
       doingEntity.setTime(todoEntityList.get(position).getTime());
       doingEntity.setPriority(todoEntityList.get(position).getPriority());
 
-      //doingView.delete(doingEntity);
-      Toast.makeText(context, "Task deleted", Toast.LENGTH_SHORT).show();
+      doingView.insert(doingEntity);
+      todoView.delete(todoEntity);
+      Toast.makeText(context, "Task shifted to Doing section", Toast.LENGTH_SHORT).show();
     }
   }
 
