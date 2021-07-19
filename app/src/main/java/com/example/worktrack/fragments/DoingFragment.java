@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.worktrack.AddTaskBottomSheetDialog;
+import com.example.worktrack.AddDoingTaskBottomSheetDialog;
 import com.example.worktrack.adapters.DoingAdapter;
 import com.example.worktrack.databinding.AddTaskBottomSheetDialogBinding;
 import com.example.worktrack.databinding.FragmentDoingBinding;
@@ -25,7 +25,7 @@ import java.util.List;
 public class DoingFragment extends Fragment {
 
   private FragmentDoingBinding binding;
-  private AddTaskBottomSheetDialog addTaskBottomSheetDialog;
+  private AddDoingTaskBottomSheetDialog addDoingTaskBottomSheetDialog;
   private DoingView doingView;
   private DoingAdapter doingAdapter;
   private List<DoingEntity> doingEntityList;
@@ -59,7 +59,7 @@ public class DoingFragment extends Fragment {
 
   private void instantiate() {
 
-    addTaskBottomSheetDialog = new AddTaskBottomSheetDialog(getActivity(), AddTaskBottomSheetDialogBinding.inflate(getLayoutInflater()));
+    addDoingTaskBottomSheetDialog = new AddDoingTaskBottomSheetDialog(getActivity(), AddTaskBottomSheetDialogBinding.inflate(getLayoutInflater()));
     doingView = ViewModelProviders.of(this).get(DoingView.class);
     doingAdapter = new DoingAdapter(getContext());
   }
@@ -86,8 +86,8 @@ public class DoingFragment extends Fragment {
 
         bundle.putBoolean("editMode", true);
 
-        addTaskBottomSheetDialog.show();
-        addTaskBottomSheetDialog.instantiateBundle(bundle);
+        addDoingTaskBottomSheetDialog.show();
+        addDoingTaskBottomSheetDialog.instantiateBundle(bundle);
       }
     });
   }
@@ -103,6 +103,6 @@ public class DoingFragment extends Fragment {
   }
 
   private void processAddTask() {
-    addTaskBottomSheetDialog.show();
+    addDoingTaskBottomSheetDialog.show();
   }
 }

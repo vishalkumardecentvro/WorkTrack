@@ -21,14 +21,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Calendar;
 
-public class AddTaskBottomSheetDialog extends BottomSheetDialog {
+public class AddDoingTaskBottomSheetDialog extends BottomSheetDialog {
   private AddTaskBottomSheetDialogBinding binding;
   private Context context;
   private DoingView doingView;
   private Bundle bundle;
   private boolean editMode = false;
 
-  public AddTaskBottomSheetDialog(@NonNull @NotNull Context context, AddTaskBottomSheetDialogBinding binding) {
+  public AddDoingTaskBottomSheetDialog(@NonNull @NotNull Context context, AddTaskBottomSheetDialogBinding binding) {
     super(context);
     this.context = context;
     this.binding = binding;

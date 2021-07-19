@@ -8,7 +8,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.worktrack.adapters.SectionPageAdapter;
 import com.example.worktrack.databinding.ActivityMainBinding;
 import com.example.worktrack.fragments.DoingFragment;
-import com.example.worktrack.fragments.DoneFragment;
 import com.example.worktrack.fragments.TodoFragment;
 import com.google.android.material.tabs.TabLayout;
 
