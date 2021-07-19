@@ -16,15 +16,19 @@ import com.example.worktrack.databinding.AddTaskBottomSheetDialogBinding;
 import com.example.worktrack.room.entitiy.DoingEntity;
 import com.example.worktrack.room.view.DoingView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.isolpro.library.materialedittext.MaterialEditText;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AddDoingTaskBottomSheetDialog extends BottomSheetDialog {
   private AddTaskBottomSheetDialogBinding binding;
   private Context context;
   private DoingView doingView;
+  private List<MaterialEditText> metInputs;
   private Bundle bundle;
   private boolean editMode = false;
 
@@ -51,6 +55,7 @@ public class AddDoingTaskBottomSheetDialog extends BottomSheetDialog {
   }
 
   private void instantiate() {
+    metInputs = new ArrayList<>();
   }
 
   public void instantiateBundle(Bundle bundleInEditMode) {
@@ -68,6 +73,9 @@ public class AddDoingTaskBottomSheetDialog extends BottomSheetDialog {
   }
 
   private void initialize() {
+    metInputs.add(binding.metTaskName);
+    metInputs.add(binding.metPriority);
+
     setContentView(binding.getRoot());
     doingView = ViewModelProviders.of((FragmentActivity) context).get(DoingView.class);
 
@@ -81,7 +89,12 @@ public class AddDoingTaskBottomSheetDialog extends BottomSheetDialog {
   }
 
   private void processSaveTask() {
-    if (binding.metTaskName.getString().trim().isEmpty() || binding.metPriority.getString().trim().isEmpty()) {
+    if (!MaterialEditText.validateEditTexts(
+            metInputs.toArray(new MaterialEditText[]{})
+    )) return;
+
+    if(Integer.parseInt(binding.metPriority.getString())<0 ||Integer.parseInt(binding.metPriority.getString()) >10){
+      Toast.makeText(context, "Priority should be between 1 and 10!!", Toast.LENGTH_SHORT).show();
       return;
     }
 

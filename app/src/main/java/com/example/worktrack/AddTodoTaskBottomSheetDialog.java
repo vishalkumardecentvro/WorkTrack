@@ -16,16 +16,20 @@ import com.example.worktrack.databinding.AddTaskBottomSheetDialogBinding;
 import com.example.worktrack.room.entitiy.TodoEntity;
 import com.example.worktrack.room.view.TodoView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.isolpro.library.materialedittext.MaterialEditText;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AddTodoTaskBottomSheetDialog extends BottomSheetDialog {
   private AddTaskBottomSheetDialogBinding binding;
   private Context context;
   private TodoView todoView;
   private Bundle bundle;
+  private List<MaterialEditText> metInputs;
   private boolean editMode = false;
 
   public AddTodoTaskBottomSheetDialog(@NonNull @NotNull Context context, AddTaskBottomSheetDialogBinding binding) {
@@ -33,6 +37,8 @@ public class AddTodoTaskBottomSheetDialog extends BottomSheetDialog {
     this.context = context;
     this.binding = binding;
     clear();
+
+    binding.mcvSave.setCardBackgroundColor(context.getResources().getColor(R.color.focusTwo));
 
     instantiate();
     initialize();
@@ -51,6 +57,8 @@ public class AddTodoTaskBottomSheetDialog extends BottomSheetDialog {
   }
 
   private void instantiate() {
+    metInputs = new ArrayList<>();
+
   }
 
   public void instantiateBundle(Bundle bundleInEditMode) {
@@ -68,6 +76,9 @@ public class AddTodoTaskBottomSheetDialog extends BottomSheetDialog {
   }
 
   private void initialize() {
+    metInputs.add(binding.metTaskName);
+    metInputs.add(binding.metPriority);
+
     setContentView(binding.getRoot());
     todoView = ViewModelProviders.of((FragmentActivity) context).get(TodoView.class);
 
@@ -81,9 +92,9 @@ public class AddTodoTaskBottomSheetDialog extends BottomSheetDialog {
   }
 
   private void processSaveTask() {
-    if (binding.metTaskName.getString().trim().isEmpty() || binding.metPriority.getString().trim().isEmpty()) {
-      return;
-    }
+    if (!MaterialEditText.validateEditTexts(
+            metInputs.toArray(new MaterialEditText[]{})
+    )) return;
 
     if (binding.tvDate.getText().toString().isEmpty() || binding.tvTime.getText().toString().isEmpty()) {
       Toast.makeText(context, "Please enter date and time", Toast.LENGTH_SHORT).show();

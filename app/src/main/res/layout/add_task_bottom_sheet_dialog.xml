@@ -25,7 +25,7 @@
       android:layout_height="wrap_content"
       android:layout_marginBottom="10dp"
       app:met_errorMessage="Please enter priority"
-      app:met_hint="Task priority"
+      app:met_hint="Task priority (1-10)"
       app:met_inputType="number"
       app:met_required="true" />
 
