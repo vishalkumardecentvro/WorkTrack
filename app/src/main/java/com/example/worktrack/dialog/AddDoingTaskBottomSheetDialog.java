@@ -93,7 +93,7 @@ public class AddDoingTaskBottomSheetDialog extends BottomSheetDialog {
             metInputs.toArray(new MaterialEditText[]{})
     )) return;
 
-    if(Integer.parseInt(binding.metPriority.getString())<0 ||Integer.parseInt(binding.metPriority.getString()) >10){
+    if(Integer.parseInt(binding.metPriority.getString())< 1 ||Integer.parseInt(binding.metPriority.getString()) >10){
       Toast.makeText(context, "Priority should be between 1 and 10", Toast.LENGTH_SHORT).show();
       return;
     }
