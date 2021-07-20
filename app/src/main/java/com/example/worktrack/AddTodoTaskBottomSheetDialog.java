@@ -38,8 +38,6 @@ public class AddTodoTaskBottomSheetDialog extends BottomSheetDialog {
     this.binding = binding;
     clear();
 
-    binding.mcvSave.setCardBackgroundColor(context.getResources().getColor(R.color.focusTwo));
-
     instantiate();
     initialize();
     listen();
