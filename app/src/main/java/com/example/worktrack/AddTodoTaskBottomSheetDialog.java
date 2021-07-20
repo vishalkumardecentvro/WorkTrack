@@ -94,6 +94,11 @@ public class AddTodoTaskBottomSheetDialog extends BottomSheetDialog {
             metInputs.toArray(new MaterialEditText[]{})
     )) return;
 
+    if(Integer.parseInt(binding.metPriority.getString())<0 ||Integer.parseInt(binding.metPriority.getString()) >10){
+      Toast.makeText(context, "Priority should be between 1 and 10", Toast.LENGTH_SHORT).show();
+      return;
+    }
+
     if (binding.tvDate.getText().toString().isEmpty() || binding.tvTime.getText().toString().isEmpty()) {
       Toast.makeText(context, "Please enter date and time", Toast.LENGTH_SHORT).show();
       return;

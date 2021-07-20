@@ -94,7 +94,7 @@ public class AddDoingTaskBottomSheetDialog extends BottomSheetDialog {
     )) return;
 
     if(Integer.parseInt(binding.metPriority.getString())<0 ||Integer.parseInt(binding.metPriority.getString()) >10){
-      Toast.makeText(context, "Priority should be between 1 and 10!!", Toast.LENGTH_SHORT).show();
+      Toast.makeText(context, "Priority should be between 1 and 10", Toast.LENGTH_SHORT).show();
       return;
     }
 
