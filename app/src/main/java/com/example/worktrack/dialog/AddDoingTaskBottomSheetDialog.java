@@ -1,4 +1,4 @@
-package com.example.worktrack;
+package com.example.worktrack.dialog;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;

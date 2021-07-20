@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.worktrack.AddDoingTaskBottomSheetDialog;
+import com.example.worktrack.dialog.AddDoingTaskBottomSheetDialog;
 import com.example.worktrack.adapters.DoingAdapter;
 import com.example.worktrack.databinding.AddTaskBottomSheetDialogBinding;
 import com.example.worktrack.databinding.FragmentDoingBinding;

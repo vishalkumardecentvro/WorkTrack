@@ -9,12 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.worktrack.AddTodoTaskBottomSheetDialog;
-import com.example.worktrack.R;
-import com.example.worktrack.adapters.DoingAdapter;
+import com.example.worktrack.dialog.AddTodoTaskBottomSheetDialog;
 import com.example.worktrack.adapters.TodoAdapter;
 import com.example.worktrack.databinding.AddTaskBottomSheetDialogBinding;
 import com.example.worktrack.databinding.FragmentTodoBinding;
