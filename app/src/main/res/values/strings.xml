@@ -1,15 +1,4 @@
 <resources>
   <string name="app_name">WorkTrack</string>
 
-  <array name="doingArray">
-    <item>Doing</item>
-    <item>Done</item>
-  </array>
-
-  <array name="TodoArray">
-    <item>To do</item>
-    <item>Doing</item>
-  </array>
-
-
 </resources>

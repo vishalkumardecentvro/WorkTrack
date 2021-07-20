@@ -23,8 +23,8 @@
   <!--    5% — 0D-->
   <!--    0% — 00-->
 
-  <color name="primary">#33cccc</color>
-  <color name="primaryDark">#85e0e0</color>
+  <color name="primary">#0066cc</color>
+  <color name="primaryDark">#66b3ff</color>
   <color name="primaryLight">#fcd2cf</color>
 
   <color name="secondary">#F7F7F7</color>
