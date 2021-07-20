@@ -76,7 +76,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.ViewHolder> {
       super(binding.getRoot());
       this.binding = binding;
 
-      binding.llCardHeader.setBackground(context.getResources().getDrawable(R.drawable.todo_card_header));
+      //binding.llCardHeader.setBackground(context.getResources().getDrawable(R.drawable.todo_card_header));
       binding.cbCheck.setText("Doing");
 
       binding.ivEdit.setOnClickListener(v -> {

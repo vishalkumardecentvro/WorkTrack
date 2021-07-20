@@ -62,7 +62,7 @@ public class TodoFragment extends Fragment {
   }
 
   private void initialize(){
-    binding.llCreateTask.setBackgroundColor(getContext().getResources().getColor(R.color.focusTwo));
+    //binding.llCreateTask.setBackgroundColor(getContext().getResources().getColor(R.color.focusTwo));
     binding.rvTodo.setAdapter(todoAdapter);
   }
 
